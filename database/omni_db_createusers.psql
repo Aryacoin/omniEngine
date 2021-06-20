@@ -15,7 +15,8 @@ create user :omniwww encrypted password :omniwwwPassword;
 
 /*  If you change usernames make sure to update them below */
 
-GRANT connect ON DATABASE omniwallet to :omniengine, :omniwww;
+
+GRANT connect ON DATABASE :omnidatabase to :omniengine, :omniwww;
 
 GRANT USAGE ON SCHEMA public TO :omniengine,:omniwww;
 GRANT SELECT,UPDATE ON ALL SEQUENCES IN SCHEMA public TO :omniengine;
@@ -29,3 +30,4 @@ GRANT INSERT ON txjson TO :omniwww;
 GRANT INSERT(txhash,protocol,txdbserialnum,txtype,txversion) ON transactions to :omniwww;
 GRANT INSERT ON addressesintxs to :omniwww;
 GRANT INSERT ON walletbackups to :omniwww;
+

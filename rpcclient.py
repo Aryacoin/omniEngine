@@ -6,7 +6,7 @@ class RPCHost():
     def __init__(self):
         self._session = requests.Session()
         try:
-            with open( os.getenv("HOME") +'/.bitcoin/bitcoin.conf') as fp:
+            with open( os.getenv("HOME") +'/.aryacoin/aryacoin.conf') as fp:
                 RPCPORT="9332"
                 RPCHOST="localhost"
                 RPCSSL=False
@@ -29,7 +29,7 @@ class RPCHost():
                             RPCSSL=False
         except IOError as e:
             response='{"error": "Unable to load aryacoin config file. Please Notify Site Administrator"}'
-            return response
+            print response
         if RPCSSL:
             self._url = "https://"+RPCUSER+":"+RPCPASS+"@"+RPCHOST+":"+RPCPORT
         else:
@@ -131,7 +131,7 @@ def getallbalancesforid_MP(propertyid):
     return host.call("omni_getallbalancesforid", propertyid)
 
 def gettransaction_MP(tx):
-    return host.call("gettransaction_MP", tx)
+    return host.call("omni_gettransaction", tx)
 
 def listblocktransactions_MP(height):
     return host.call("omni_listblocktransactions", height)
