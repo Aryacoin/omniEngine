@@ -239,7 +239,7 @@ def updateTxStats():
     ROWS=dbSelect("select blocknumber,blocktime from blocks order by blocknumber desc limit 1")
     curblock=ROWS[0][0]
     btime=ROWS[0][1]
-    ROWS=dbSelect("select coalesce(max(blocknumber),252316) from txstats")
+    ROWS=dbSelect("select coalesce(max(blocknumber),773614) from txstats")
     lastblock=ROWS[0][0]
     nextblock=lastblock+1
     printdebug(("TxStats: lastblock",lastblock,", curblock:",str(curblock)),0)
@@ -279,7 +279,7 @@ def updateTxStatsBlock(blocknumber):
         tval_day=0
       valuelist={}
       total=0
-      rbtcusd=dbSelect("select rate1for2 from exchangerates where protocol1='Fiat' and protocol2='Bitcoin' and propertyid1=0 and propertyid2=0 order by asof desc limit 1")
+      rbtcusd=dbSelect("select rate1for2 from exchangerates where protocol1='Fiat' and protocol2='Aryacoin' and propertyid1=0 and propertyid2=0 order by asof desc limit 1")
       try:
         btcusd=decimal.Decimal(rbtcusd[0][0])
       except:
@@ -292,7 +292,7 @@ def updateTxStatsBlock(blocknumber):
         invalid=t[4]
         if divisible in ['true','True',True]:
           volume=decimal.Decimal(volume)/decimal.Decimal(1e8)
-        rawrate=dbSelect("select rate1for2 from exchangerates where protocol1='Bitcoin' and protocol2='Omni' and propertyid1=0 and propertyid2=%s order by asof desc limit 1",[pid])
+        rawrate=dbSelect("select rate1for2 from exchangerates where protocol1='Aryacoin' and protocol2='Omni' and propertyid1=0 and propertyid2=%s order by asof desc limit 1",[pid])
         try:
           rate=decimal.Decimal(rawrate[0][0])
         except:
@@ -778,7 +778,7 @@ def updatedex(rawtx, TxDBSerialNum, Protocol):
       totalselling=amountavailable
 
       #convert all btc stuff, need additional logic for metadex
-      amountdesired=int(decimal.Decimal(str(rawtx['result']['bitcoindesired']))*decimal.Decimal(1e8))
+      amountdesired=int(decimal.Decimal(str(rawtx['result']['aryacoindesired']))*decimal.Decimal(1e8))
       minimumfee=int(decimal.Decimal(str(rawtx['result']['feerequired']))*decimal.Decimal(1e8))
 
       #rawtx does't have ppc, do the calculation to store
@@ -1031,7 +1031,7 @@ def resetdextable_MP():
         totalselling=amountaccepted
 
         #convert all btc stuff, need additional logic for metadex
-        amountdesired=int(decimal.Decimal(str(sale['bitcoindesired']))*decimal.Decimal(1e8))
+        amountdesired=int(decimal.Decimal(str(sale['aryacoindesired']))*decimal.Decimal(1e8))
         minimumfee=int(decimal.Decimal(str(sale['minimumfee']))*decimal.Decimal(1e8))
         unitprice=int(decimal.Decimal(str(sale['unitprice']))*decimal.Decimal(1e8))
 
@@ -1445,10 +1445,10 @@ def updateProperty(PropertyID, Protocol, LastTxDBSerialNum=None):
       reorg = False
 
     if PropertyID == 0:
-      rawprop = {"name":"BTC", "blocktime":1231006505, "data":"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks", "issuer":"Satoshi Nakamoto", "url":"http://www.bitcoin.org", "propertyid":0 ,"divisible": True}
+      rawprop = {"name":"AYA", "blocktime":1550751039, "data":"Aryacoin is New one and Unique to world", "url":"https://aryacoin.io", "propertyid":0 ,"divisible": True}
       Issuer = rawprop['issuer']
       try:
-        r = requests.get('https://blockchain.info/q/totalbc')
+        r = requests.get('https://explorer.aryacoin.io/ext/getmoneysupply')
         amt=int(r.text)
         rawprop['totaltokens'] = str(int(amt/1e8))+".00000000"
       except:
@@ -1463,11 +1463,13 @@ def updateProperty(PropertyID, Protocol, LastTxDBSerialNum=None):
       Issuer = rawprop['issuer']
 
       if PropertyID in [1,2]:
-        rawprop['blocktime']=1377994675
+        rawprop['blocktime']=1623705305
         if PropertyID == 1:
           rawprop['name']=u'Omni Token'
         elif PropertyID == 2:
           rawprop['name']=u'Test Omni Token'
+        elif PropertyID == 3:
+          rawprop['name']=u'Aryacoin Token'
 
       #if TxType == 51 or TxType == 53:
       try:
@@ -1656,7 +1658,7 @@ def insertTxAddr(rawtx, Protocol, TxDBSerialNum, Block):
 
     TxHash = rawtx['result']['txid']
 
-    if Protocol == "Bitcoin":
+    if Protocol == "Aryacoin":
       PropertyID=0
       Ecosystem=None
       #process all outputs
@@ -2366,7 +2368,7 @@ def insertTx(rawtx, Protocol, blockheight, seq, TxDBSerialNum):
     TxBlockNumber = blockheight
     #TxDBSerialNum = dbserialnum
 
-    if Protocol == "Bitcoin":
+    if Protocol == "Aryacoin":
       #Bitcoin is only simple send, type 0
       TxType=0
       TxVersion=rawtx['result']['version']

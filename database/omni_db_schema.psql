@@ -26,7 +26,7 @@
  *	sender sent a Simple Send
  */
 create type AddressRole as enum ('buyer', 'issuer', 'participant', 'payee', 'recipient', 'seller', 'sender', 'payer', 'feepayer');
-create type Protocol as enum ('Fiat', 'Bitcoin', 'Omni');
+create type Protocol as enum ('Fiat', 'Aryacoin', 'Omni');
 create type Ecosystem as enum ('Production', 'Test', 'All');
 create type ObjectType as enum ('address', 'property', 'tx_version_type');
 create type TxState as enum ('pending', 'valid', 'not valid');
@@ -82,7 +82,7 @@ create table if not exists WalletBackups (
  */
 create table if not exists AddressBalances (
 	Address	varchar(64)				/* Bitcoin addresses are 34 chars */
-	, Protocol Protocol not null default 'Bitcoin'	/* initially 'Bitcoin' or 'Omni' */
+	, Protocol Protocol not null default 'Aryacoin'	/* initially 'Bitcoin' or 'Omni' */
 	, PropertyID bigint not null default 0		/* Bitcoin */
 	, Ecosystem Ecosystem null
 	, BalanceAvailable numeric(19) not null default 0
@@ -120,7 +120,7 @@ create table if not exists AddressStats (
 create table if not exists AddressesInWallets (		/* many-to-many */
 	Address varchar(64) not null		/* Address must exist in the AddressBalances table */
 	, WalletID uuid	not null		/* WalletID must exist in the Wallets table */
-	, Protocol Protocol not null default 'Bitcoin'  /* initially 'Bitcoin' or 'Omni' */
+	, Protocol Protocol not null default 'Aryacoin'  /* initially 'Bitcoin' or 'Omni' */
 	, PropertyID bigint not null default 0 /* Bitcoin */
 
 	, primary key (WalletID, Address, protocol, propertyid)

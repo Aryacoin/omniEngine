@@ -7,13 +7,13 @@ class RPCHost():
         self._session = requests.Session()
         try:
             with open( os.getenv("HOME") +'/.bitcoin/bitcoin.conf') as fp:
-                RPCPORT="8332"
+                RPCPORT="9332"
                 RPCHOST="localhost"
                 RPCSSL=False
                 for line in fp:
                     #print line
                     if line.split('=')[0] == "testnet" and line.split('=')[1] == "1":
-                        RPCPORT="18332"
+                        RPCPORT="19332"
                     elif line.split('=')[0] == "rpcuser":
                         RPCUSER=line.split('=')[1].strip()
                     elif line.split('=')[0] == "rpcpassword":
@@ -28,7 +28,7 @@ class RPCHost():
                         else:
                             RPCSSL=False
         except IOError as e:
-            response='{"error": "Unable to load bitcoin config file. Please Notify Site Administrator"}'
+            response='{"error": "Unable to load aryacoin config file. Please Notify Site Administrator"}'
             return response
         if RPCSSL:
             self._url = "https://"+RPCUSER+":"+RPCPASS+"@"+RPCHOST+":"+RPCPORT
@@ -122,46 +122,46 @@ def omni_getcurrentconsensushash():
     return host.call("omni_getcurrentconsensushash")
 
 def getbalance_MP(addr, propertyid):
-    return host.call("getbalance_MP", addr, propertyid)
+    return host.call("omni_getbalance", addr, propertyid)
 
 def getallbalancesforaddress_MP(addr):
-    return host.call("getallbalancesforaddress_MP", addr)
+    return host.call("omni_getallbalancesforaddress", addr)
 
 def getallbalancesforid_MP(propertyid):
-    return host.call("getallbalancesforid_MP", propertyid)
+    return host.call("omni_getallbalancesforid", propertyid)
 
 def gettransaction_MP(tx):
     return host.call("gettransaction_MP", tx)
 
 def listblocktransactions_MP(height):
-    return host.call("listblocktransactions_MP", height)
+    return host.call("omni_listblocktransactions", height)
 
 def getproperty_MP(propertyid):
-    return host.call("getproperty_MP", propertyid)
+    return host.call("omni_getproperty", propertyid)
 
 def listproperties_MP():
-    return host.call("listproperties_MP")
+    return host.call("omni_listproperties")
 
 def getcrowdsale_MP(propertyid):
-    return host.call("getcrowdsale_MP", propertyid)
+    return host.call("omni_getcrowdsale", propertyid)
 
 def getactivecrowdsales_MP():
-    return host.call("getactivecrowdsales_MP")
+    return host.call("omni_getactivecrowdsales")
 
 def getactivedexsells_MP():
-    return host.call("getactivedexsells_MP")
+    return host.call("omni_getactivedexsells")
 
 def getdivisible_MP(propertyid):
     return getproperty_MP(propertyid)['result']['divisible']
 
 def getgrants_MP(propertyid):
-    return host.call("getgrants_MP", propertyid)
+    return host.call("omni_getgrants", propertyid)
 
 def gettrade(txhash):
     return host.call("omni_gettrade", txhash)
 
 def getsto_MP(txid):
-    return host.call("getsto_MP", txid , "*")
+    return host.call("omni_getsto", txid , "*")
 
 def omni_listpendingtransactions():
     return host.call("omni_listpendingtransactions")

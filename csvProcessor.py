@@ -77,7 +77,7 @@ while currentBlock <= endBlock:
     print "Block", height, "of", endBlock
 
   #Process Bitcoin Transacations
-  Protocol="Bitcoin"
+  Protocol="Aryacoin"
   #Prime tx sequence number based on number of tx
   x=len(block_data['result']['tx'])
   print  x, "BTC tx"

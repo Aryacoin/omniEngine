@@ -30,7 +30,7 @@ from
 where
 	aiw.WalletID = '<walletid>'
 	and aiw.Address = ab.Address
-	and (ab.Protocol = 'Bitcoin' or ab.Protocol = 'Mastercoin')
+	and (ab.Protocol = 'Aryacoin' or ab.Protocol = 'Mastercoin')
 	and exr.PropertyID2 = ab.PropertyID
 	and exr.Protocol = ab.Protocol
 	and exr.PropertyID1 = <USD_ID>
@@ -56,7 +56,7 @@ from
 	, ExchangeRates exr
 where
 	ab.Address = '<address>'
-	and (ab.Protocol = 'Bitcoin' or ab.Protocol = 'Mastercoin')
+	and (ab.Protocol = 'Aryacoin' or ab.Protocol = 'Mastercoin')
 	and exr.PropertyID2 = ab.PropertyID
 	and exr.Protocol = ab.Protocol
 	and exr.PropertyID1 = <USD_ID>
@@ -79,7 +79,7 @@ from
 where
 	ab.Address = '<address>'
 	and ab.PropertyID = <propertyid>
-	and (ab.Protocol = 'Bitcoin' or ab.Protocol = 'Mastercoin')
+	and (ab.Protocol = 'Aryacoin' or ab.Protocol = 'Mastercoin')
 	and exr.PropertyID2 = ab.PropertyID
 	and exr.BaseProtocol = ab.BaseProtocol
 	and exr.PropertyID1 = <USD_ID>
@@ -327,7 +327,7 @@ Delete			/* remove the address-wallet association, but leave the address balance
 	AddressesInWallets
 where
 	Address = '<address>'
-	and (Protocol = 'Bitcoin' or Protocol = 'Mastercoin')
+	and (Protocol = 'Aryacoin' or Protocol = 'Mastercoin')
 	
 Commit Transaction
 ```

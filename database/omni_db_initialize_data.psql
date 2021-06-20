@@ -1,11 +1,11 @@
 /* Load the initial known protocols */
 insert into Protocols values (
-	'Bitcoin', 'Bitcoin', 'http://bitcoin.org'
+	'Aryacoin', 'Aryacoin', 'https://aryacoin.io'
 )
 ; 
 
 insert into Protocols values (
-	'Omni', 'Bitcoin', 'http://omnilayer.org'
+	'Omni', 'Aryacoin', 'https://aryacoin.io'
 )
 ;
 
@@ -16,7 +16,15 @@ insert into Protocols values (
 
 /*Load the Bitcoin property*/
 insert into smartproperties (Protocol, propertyid, issuer, createtxdbserialnum, lasttxdbserialnum, propertyname, propertytype, propertydata) values (
-     'Bitcoin', 0, 'Satoshi Nakamoto', -1, -1, 'BTC', 2, '{"name":"BTC", "blocktime":1231006505, "data":"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks", "issuer":"Satoshi Nakamoto", "url":"http://www.bitcoin.org", "propertyid":0 ,"divisible": true}');
+     'Aryacoin', 0, 'Aryacoin Team', -1, -1, 'AYA', 2, '{"name":"AYA", "blocktime":1550751039, "data":"Aryacoin is New one and Unique to world", "issuer":"Aryacoin Team", "url":"https://aryacoin.io", "propertyid":0 ,"divisible": true}');
+
+
+insert into smartproperties (Protocol, propertyid, issuer, ecosystem, createtxdbserialnum, lasttxdbserialnum, propertyname, propertytype, propertycategory, propertysubcategory, propertydata) values (
+     'Omni', 3, 'AWw9goPncxmogCxe8vNWGG5spFYfLoqvL5', 'Production', 1, 1, 'Aryacoin', 1, '', '', '{"url": "https://aryacoin.io", "data": "Aryacoin tokens serve as the binding between Aryacoin, smart properties and contracts created on OmniAYA.", "name": "Aryacoin", "issuer": "AWw9goPncxmogCxe8vNWGG5spFYfLoqvL5", "category": "", "divisible": true, "propertyid": 3, "subcategory": "", "totaltokens": "1200000000.00000000", "creationtxid": "", "fixedissuance": true, "managedissuance": false, "non-fungibletoken": false}');
+
+/*Add balance to Aryacoin issuer*/
+insert into addressbalances (address, protocol, propertyid, ecosystem, balanceavailable, balancereserved, balanceaccepted, balancefrozen, lasttxdbserialnum) values ('AWw9goPncxmogCxe8vNWGG5spFYfLoqvL5', 'Omni', 3, 'Production', 33600000000000000, 0, 0, 0, 1);
+
 
 /*Load the list of Fiat Currencies we track */
 

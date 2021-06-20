@@ -25,7 +25,7 @@ def dumpblocks_csv(csvwb, block_data, Protocol, block_height, txcount):
 def dumptxaddr_csv(csvwb, rawtx, Protocol, TxDBSerialNum):
     TxHash = rawtx['result']['txid']
 
-    if Protocol == "Bitcoin":
+    if Protocol == "Aryacoin":
       PropertyID=0
       #process all outputs
       for output in rawtx['result']['vout']:
@@ -272,7 +272,7 @@ def dumptx_csv(csvwb, rawtx, Protocol, block_height, seq, dbserialnum):
     TxSeqInBlock= seq
     TxDBSerialNum = dbserialnum
 
-    if Protocol == "Bitcoin":
+    if Protocol == "Aryacoin":
       #Bitcoin is only simple send, type 0
       TxType=0
       TxVersion=rawtx['result']['version']

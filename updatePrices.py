@@ -24,20 +24,7 @@ def fiat2propertyid(abv):
 
 def getSource(sp):
   try:
-    convert={0:{"cmcid":"1","name":"BTC","source":"coinmarketcap"},
-             1:{"cmcid":"83","name":"OMNI","source":"coinmarketcap"},
-             3:{"cmcid":"291","name":"MAID","source":"coinmarketcap"},
-             31:{"cmcid":"825","id":"USDt","name":"Tether USD","source":"fixed","value":1,"base":0},
-             39:{"cmcid":"1125","name":"AMP","source":"coinmarketcap"},
-             41:{"id":"EURt","name":"Tether EUR","source":"fixed","value":1,"base":2},
-             56:{"cmcid":"1172","name":"SAFEX","source":"coinmarketcap"},
-             58:{"cmcid":"1037","id":"AGRS","name":"IDNO Agoras","source":"coinmarketcap"},
-             #59:{"id":"PDC","source":"coinmarketcap"},
-             #66:{"cmcid":"1352","name":"GARY","source":"coinmarketcap"},
-             #89:{"id":"DIBC","source":"coinmarketcap"},
-             #90:"https://market.bitsquare.io/api/trades?market=sfsc_btc",
-             #149:{"cmcid":"1642","name":"ALT","source":"coinmarketcap"},
-             701:{"cmcid":"3850","id":"OTO","name":"OTOCash","source":"coinmarketcap"}
+    convert={0:{"cmcid":"1","name":"AYA","source":"coinmarketcap"},
             }
     if sp == 'cmcids':
       q=[]
@@ -62,7 +49,7 @@ def getfixedprice(desiredvalue, base):
   # 16 | RUB       # 17 | MXN       # 18 | BRL       # 19 | PLN
   # 20 | ZAR       # 21 | JPY
 
-  ROWS=dbSelect("select rate1for2 from exchangerates where protocol1='Fiat' and propertyid1=%s and protocol2='Bitcoin' and propertyid2=0 "
+  ROWS=dbSelect("select rate1for2 from exchangerates where protocol1='Fiat' and propertyid1=%s and protocol2='Aryacoin' and propertyid2=0 "
                 "order by asof desc limit 1",[int(base)])
   if len(ROWS)>0:
     return desiredvalue / ROWS[0][0]
@@ -126,7 +113,7 @@ def updateBTC():
         if fpid == -1:
           new.append(abv)
         else:
-          upsertRate('Fiat', fpid, 'Bitcoin', 0, value, source, timestamp)
+          upsertRate('Fiat', fpid, 'Aryacoin', 0, value, source, timestamp)
       if len(new) > 0:
         printdebug(("New Symbols not in db",new),5)
     except requests.exceptions.RequestException as e:
